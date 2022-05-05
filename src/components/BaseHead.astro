@@ -1,0 +1,86 @@
+---
+import '../sass/minireset.sass';
+import '../sass/global.sass';
+
+export interface Props {
+	title?: string;
+	description?: string;
+}
+const { title, description } = Astro.props;
+const fixedTitle = !!title
+	? `♡✨ ${title} • SITE DO DOCE ✨♡`
+	: `♡✨ SITE DO DOCE ✨♡`;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+<!-- Primary Meta Tags -->
+<title>{fixedTitle}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={fixedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content="https://astro.build/social.jpg?v=1" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content={fixedTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content="https://astro.build/social.jpg?v=1" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,700;1,400;1,700&family=IBM+Plex+Serif:ital@1&display=swap" rel="stylesheet">
+
+<script>
+	/* CURSOR TRAIL */
+
+	function fairyDustCursor(t){let e=t&&t.colors||["#D61C59","#E7D84B","#1B8798"],i=t&&t.element,n=i||document.body,o=window.innerWidth,h=window.innerHeight;const s={x:o/2,y:o/2},a={x:o/2,y:o/2},l=[],c=[];let d,r;const u="*";function f(t){o=window.innerWidth,h=window.innerHeight,i?(d.width=n.clientWidth,d.height=n.clientHeight):(d.width=o,d.height=h)}function p(t){if(t.touches.length>0)for(let e=0;e<t.touches.length;e++)y(t.touches[e].clientX,t.touches[e].clientY,c[Math.floor(Math.random()*c.length)])}function x(t){window.requestAnimationFrame(()=>{if(i){const e=n.getBoundingClientRect();s.x=t.clientX-e.left,s.y=t.clientY-e.top}else s.x=t.clientX,s.y=t.clientY;Math.hypot(s.x-a.x,s.y-a.y)>1.5&&(y(s.x,s.y,c[Math.floor(Math.random()*e.length)]),a.x=s.x,a.y=s.y)})}function y(t,e,i){l.push(new m(t,e,i))}function g(){!function(){r.clearRect(0,0,o,h);for(let t=0;t<l.length;t++)l[t].update(r);for(let t=l.length-1;t>=0;t--)l[t].lifeSpan<0&&l.splice(t,1)}(),requestAnimationFrame(g)}function m(t,e,i){const n=Math.floor(30*Math.random()+60);this.initialLifeSpan=n,this.lifeSpan=n,this.velocity={x:(Math.random()<.5?-1:1)*(Math.random()/2),y:.7*Math.random()+.9},this.position={x:t,y:e},this.canv=i,this.update=function(t){this.position.x+=this.velocity.x,this.position.y+=this.velocity.y,this.lifeSpan--,this.velocity.y+=.02;const e=Math.max(this.lifeSpan/this.initialLifeSpan,0);t.drawImage(this.canv,this.position.x-this.canv.width/2*e,this.position.y-this.canv.height/2,this.canv.width*e,this.canv.height*e)}}d=document.createElement("canvas"),r=d.getContext("2d"),d.style.top="0px",d.style.left="0px",d.style.pointerEvents="none",i?(d.style.position="absolute",n.appendChild(d),d.width=n.clientWidth,d.height=n.clientHeight):(d.style.position="fixed",n.appendChild(d),d.width=o,d.height=h),r.font="21px serif",r.textBaseline="middle",r.textAlign="center",e.forEach(t=>{let e=r.measureText(u),i=document.createElement("canvas"),n=i.getContext("2d");i.width=e.width,i.height=e.actualBoundingBoxAscent+e.actualBoundingBoxDescent,n.fillStyle=t,n.textAlign="center",n.font="21px serif",n.textBaseline="middle",n.fillText(u,i.width/2,e.actualBoundingBoxAscent),c.push(i)}),n.addEventListener("mousemove",x),n.addEventListener("touchmove",p,{passive:!0}),n.addEventListener("touchstart",p,{passive:!0}),window.addEventListener("resize",f),g()}
+	new fairyDustCursor();
+</script>
+
+<script>
+	/* GOOGLY EYES */
+
+	let eyeL = null;
+	let eyeR = null;
+	let box = null;
+	let radius = 0;
+
+	document.addEventListener('DOMContentLoaded', () => {
+		eyeL = document.getElementById('eyeL');
+		eyeR = document.getElementById('eyeR');
+		box = eyeL.getBoundingClientRect();
+		radius = box.width / 2;
+	});
+
+	document.body.addEventListener('mousemove', (event) => {
+		const x = box.left + radius;
+    const y = box.top + radius;
+    const rad = Math.atan2(event.pageX - x, event.pageY - y);
+    const rot = (rad * (180 / Math.PI) * -1) + 180;
+		eyeL.style.transform = `rotate(${rot}deg)`;
+		eyeR.style.transform = `rotate(${rot}deg)`;
+	});
+</script>
+
+<script>
+	/* MEOW */
+	const audio = new Audio('/assets/audio/miau.mp3');
+
+  const meow = () => {
+    audio.volume = .5;
+    audio.play();
+  }
+
+	document.addEventListener('DOMContentLoaded', () => {
+		document.getElementById('pet').addEventListener('click', meow);
+	});
+</script>

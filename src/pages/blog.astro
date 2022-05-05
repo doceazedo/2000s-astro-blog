@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Posts from '../components/Posts.svelte';
+
+let posts = await Astro.glob('./posts/*.md');
+posts = posts.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+---
+
+<Layout title="Meu blog ~~">
+  <Posts {posts} />
+</Layout>

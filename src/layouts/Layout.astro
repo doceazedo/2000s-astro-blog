@@ -1,0 +1,24 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import LayoutContainer from '../components/Layout/LayoutContainer.svelte';
+import Pet from '../components/Pet.svelte';
+
+export interface Props {
+	title?: string;
+	description: string;
+}
+const { title, description, content } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title || content?.title} {description} />
+  </head>
+
+  <body>
+    <LayoutContainer title={title || content?.title || 'Bem-vinde ao meu site! (◡ ‿ ◡ ✿)'}>
+      <slot />
+    </LayoutContainer>
+    <Pet />
+  </body>
+</html>
